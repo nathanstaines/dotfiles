@@ -1,0 +1,23 @@
+# ~/.gitconfig
+
+[alias]
+    st = status -sb
+    cm = commit -am
+    br = branch
+    co = checkout
+    df = diff
+[color]
+    ui = auto
+    interactive = auto
+[core]
+    excludesfile = ~/.gitignore_global
+[push]
+    default = simple
+[pretty]
+    # tut: http://gitimmersion.com/lab_10.html
+    # ref: http://linux.die.net/man/1/git-log
+    # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
+    nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
+[user]
+    name = Nathan Staines
+    email = nathan@nathanstaines.com

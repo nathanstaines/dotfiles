@@ -1,0 +1,22 @@
+# ~/.bash_profile
+
+declare -a files=(
+    "$HOME/.aliases"
+    "$HOME/.bash_prompt"
+    "$HOME/.rvm/scripts/rvm"
+)
+
+# If these files are readable, source them
+for index in ${!files[*]}
+do
+    if [ -r ${files[$index]} ]; then
+        source ${files[$index]}
+    fi
+done
+
+unset files
+
+# Virtual envs ?
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Sites
+source /usr/local/bin/virtualenvwrapper.sh
