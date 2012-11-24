@@ -20,3 +20,6 @@ unset files
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Sites
 source /usr/local/bin/virtualenvwrapper.sh
+
+# Postgres
+PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"
