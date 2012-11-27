@@ -22,4 +22,4 @@ export PROJECT_HOME=$HOME/Sites
 source /usr/local/bin/virtualenvwrapper.sh
 
 # Postgres
-PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"
+export PATH=/usr/local/Cellar/postgresql/9.2.1/bin:$PATH
