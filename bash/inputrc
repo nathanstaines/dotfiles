@@ -2,3 +2,9 @@
 
 # Enable case-insensitive file name completion
 set completion-ignore-case On
+
+# Incremental history searching
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
