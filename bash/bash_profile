@@ -23,3 +23,6 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 # Postgres
 export PATH=/usr/local/Cellar/postgresql/9.2.1/bin:$PATH
+
+# Node package manager
+export PATH=/usr/local/share/npm/bin:$PATH
