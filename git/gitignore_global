@@ -33,7 +33,3 @@ Thumbs.db
 
 # Sublime Text SFTP
 sftp-config.json
-
-# Jekyll folders
-_site/
-_drafts/
