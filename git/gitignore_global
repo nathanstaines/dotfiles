@@ -31,5 +31,6 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
-# Sublime Text SFTP
+# Config files
 sftp-config.json
+codekit-config.json

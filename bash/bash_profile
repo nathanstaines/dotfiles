@@ -27,16 +27,18 @@ done
 
 unset files
 
+# Node package manager
+export PATH="/usr/local/share/npm/bin:$PATH"
+
+# Some rbenv magic
+if which rbenv > /dev/null; then
+    eval "$(rbenv init -)";
+fi
+
 # Virtual envs ?
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Sites
 source /usr/local/bin/virtualenvwrapper.sh
 
-# Postgres
-export PATH=/usr/local/Cellar/postgresql/9.2.1/bin:$PATH
-
-# Node package manager
-export PATH=/usr/local/share/npm/bin:$PATH
-
-### Added by the Heroku Toolbelt
+# Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

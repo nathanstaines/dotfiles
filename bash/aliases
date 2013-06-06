@@ -6,14 +6,17 @@ alias ...="cd ../.."
 
 # List dir contents
 # http://ss64.com/osx/ls.html
-alias ls="ls -G"
+alias ls="ls -G1"
 alias la="ls -AG"
 alias lh="ls -dC .??*"
 alias ll="ls -AGoh"
 
+# Delete contents of directory
+alias dump="rm -rf ./* && rm -rf ./.*"
+
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
+alias localip="ipconfig getifaddr en1 && ipconfig getifaddr en3"
 
 # Copy my public key to my clipboard
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to clipboard.'"

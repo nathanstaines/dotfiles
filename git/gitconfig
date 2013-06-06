@@ -7,6 +7,7 @@
     co = checkout
     df = diff
     lg = log --pretty=nice
+    dl = ! git rm $(git ls-files --deleted)
     pp = ! git pull --rebase && git push
     dp = ! git branch -D master && git checkout -b master && git filter-branch --subdirectory-filter _site/ -f && git checkout source && git push --all origin
 [color]
@@ -14,6 +15,7 @@
     interactive = auto
 [core]
     excludesfile = ~/.gitignore_global
+	pager = less -r
 [push]
     default = tracking
 [pretty]
