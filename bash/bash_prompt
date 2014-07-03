@@ -1,61 +1,76 @@
 # ~/.bash_prompt
+# Adapted from https://github.com/cowboy/dotfiles/blob/master/source/50_prompt.sh
 
-tput sgr 0 0
+# ANSI CODES - SEPARATE MULTIPLE VALUES WITH ;
+#
+#  0  reset          4  underline
+#  1  bold           7  inverse
+#
+# FG  BG  COLOR     FG  BG  COLOR
+# 30  40  black     34  44  blue
+# 31  41  red       35  45  magenta
+# 32  42  green     36  46  cyan
+# 33  43  yellow    37  47  white
 
-# Base styles and color palette
-# Solarized colors
-# https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
-SOLAR_YELLOW=$(tput setaf 136)
-SOLAR_ORANGE=$(tput setaf 166)
-SOLAR_RED=$(tput setaf 124)
-SOLAR_MAGENTA=$(tput setaf 125)
-SOLAR_VIOLET=$(tput setaf 61)
-SOLAR_BLUE=$(tput setaf 33)
-SOLAR_CYAN=$(tput setaf 37)
-SOLAR_GREEN=$(tput setaf 64)
-SOLAR_WHITE=$(tput setaf 254)
+if [[ ! "${prompt_colors[@]}" ]]; then
+  prompt_colors=(
+    "31" # User
+    "33" # Information
+    "37" # Bracket
+    "32" # Branch
+    "31" # Error
+  )
 
-style_user="\[${RESET}${SOLAR_ORANGE}\]"
-style_path="\[${RESET}${SOLAR_YELLOW}\]"
-style_chars="\[${RESET}${SOLAR_WHITE}\]"
-style_branch="${SOLAR_CYAN}"
-
-if [[ "$SSH_TTY" ]]; then
-    # connected via ssh
-    style_host="\[${BOLD}${SOLAR_RED}\]"
-elif [[ "$USER" == "root" ]]; then
-    # logged in as root
-    style_user="\[${BOLD}${SOLAR_RED}\]"
+  if [[ "$SSH_TTY" ]]; then
+    prompt_colors[0]="32"
+  elif [[ "$USER" == "root" ]]; then
+    prompt_colors[0]="35"
+  fi
 fi
 
-# Git status.
-# Adapted from: https://github.com/cowboy/dotfiles/
-function prompt_git() {
-    local status output flags
-    status="$(git status 2>/dev/null)"
-    [[ $? != 0 ]] && return;
-    output="$(echo "$status" | awk '/# Initial commit/ {print "(init)"}')"
-    [[ "$output" ]] || output="$(echo "$status" | awk '/# On branch/ {print $4}')"
-    [[ "$output" ]] || output="$(git branch | perl -ne '/^\* (.*)/ && print $1')"
-    flags="$(
-    echo "$status" | awk 'BEGIN {r=""} \
-        /^# Changes to be committed:$/        {r=r "+"}\
-        /^# Changes not staged for commit:$/  {r=r "!"}\
-        /^# Untracked files:$/                {r=r "?"}\
-        END {print r}'
-    )"
-    if [[ "$flags" ]]; then
-        output="$output[$flags]"
-    fi
-    echo -ne "${SOLAR_WHITE} on ${style_branch}${output}"
+alias prompt_getcolors='prompt_colors[9]=; local i; for i in ${!prompt_colors[@]}; do local c$i="\[\e[0;${prompt_colors[$i]}m\]"; done'
+
+function prompt_exitcode() {
+  prompt_getcolors
+  [[ $1 != 0 ]] && echo " $c4$1$c9"
 }
 
-# Build the prompt
-PS1="${style_user}\u" # Username
-PS1+="${style_chars}: " # :
-PS1+="${style_path}\w" # Working directory
-PS1+="\$(prompt_git)" # Git details
-PS1+="\n" # Newline
-PS1+="${style_chars}\$ \[${RESET}\]" # $ (and reset color)
+function prompt_git() {
+  prompt_getcolors
+  local status output flags
+  status="$(git status 2>/dev/null)"
+  [[ $? != 0 ]] && return;
+  output="$(echo "$status" | awk '/# Initial commit/ {print "(init)"}')"
+  [[ "$output" ]] || output="$(echo "$status" | awk '/# On branch/ {print $4}')"
+  [[ "$output" ]] || output="$(git branch | perl -ne '/^\* (.*)/ && print $1')"
+  flags="$(
+    echo "$status" | awk 'BEGIN {r=""} \
+      /^Changes to be committed:$/        {r=r "+"}\
+      /^Changes not staged for commit:$/  {r=r "!"}\
+      /^Untracked files:$/                {r=r "?"}\
+      END {print r}'
+  )"
+  if [[ "$flags" ]]; then
+    output="$output$c2:$c1$flags"
+  fi
+  echo "$c2[$c3$output$c2]$c9"
+}
+
+prompt_stack=()
+trap 'prompt_stack=("${prompt_stack[@]}" "$BASH_COMMAND")' DEBUG
+
+function prompt_command() {
+  local exit_code=$?
+  [[ "${prompt_stack[0]}" == "prompt_command" ]] && exit_code=0
+  prompt_stack=()
+  [[ "$(type -t _z)" ]] && _z --add "$(pwd -P 2>/dev/null)" 2>/dev/null
+  [[ "$simple_prompt" ]] && PS1='\n$ ' && return
+  prompt_getcolors
+  PS1="$c2[$c0\u$c2:$c1\w$c2]$c9"
+  PS1="$PS1$(prompt_git)"
+  PS1="$PS1$(prompt_exitcode "$exit_code")"
+  PS1="$PS1\n"
+  PS1="$PS1\$ "
+}
+
+PROMPT_COMMAND="prompt_command"

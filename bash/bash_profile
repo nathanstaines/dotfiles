@@ -1,5 +1,10 @@
 # ~/.bash_profile
 
+# Set ls Environment variables
+# http://ss64.com/osx/ls-env.html
+export CLICOLOR='Yes'
+export LSCOLORS='exfxcxdxbxegedabagacad'
+
 # Append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -14,7 +19,6 @@ export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 declare -a files=(
     "$HOME/.aliases"
     "$HOME/.bash_prompt"
-    "$HOME/.rvm/scripts/rvm"
 )
 
 # If these files are readable, source them
@@ -27,18 +31,11 @@ done
 
 unset files
 
-# Node package manager
-export PATH="/usr/local/share/npm/bin:$PATH"
+# Add rbenv to $PATH
+export PATH="$HOME/.rbenv/bin:$PATH"
 
-# Some rbenv magic
-if which rbenv > /dev/null; then
-    eval "$(rbenv init -)";
-fi
+# Add rbenv init to shell
+eval "$(rbenv init -)"
 
-# Virtual envs ?
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Sites
-source /usr/local/bin/virtualenvwrapper.sh
-
-# Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+# Add postgres.app to $PATH
+export PATH="/Applications/Postgres93.app/Contents/MacOS/bin:$PATH"
