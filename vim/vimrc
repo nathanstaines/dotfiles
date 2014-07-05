@@ -1,0 +1,50 @@
+" ~/.vimrc
+
+" ------------ Vundle setup ------------
+
+set nocompatible
+filetype off
+
+" Set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+Plugin 'chriskempson/base16-vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-fugitive'
+
+" Plugins must be added before the following line
+call vundle#end()
+filetype plugin indent on
+
+" ----------- General config -----------
+
+set number                              " Display line numbers
+set noshowmode                          " Remove default mode indicator
+
+" ----------- Theme settings -----------
+
+syntax on
+set background=dark
+colorscheme base16-ocean
+set term=screen-16color
+set t_Co=16
+
+" -------------- Nerdtree --------------
+
+" Close NERDTree if it's the only window left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" -------------- Airline ---------------
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+set laststatus=2
+set timeoutlen=50
+
+" ------------ Key bindings ------------
+
+map <C-n> :NERDTreeToggle<CR>           " Set a shortcut to toggle NERDTree
