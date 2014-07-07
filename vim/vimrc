@@ -15,6 +15,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
+Plugin 'wincent/command-t'
 
 " Plugins must be added before the following line
 call vundle#end()
@@ -46,10 +47,22 @@ let NERDTreeMinimalUI=1
 
 " -------------- Airline ---------------
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#fnamemod=':t'
+let g:airline_powerline_fonts=1
 set laststatus=2
-set timeoutlen=50
+
+" ------------- Command-T --------------
+
+" Ignore directories
+set wildignore+=node_modules
+set wildignore+=client/bower_components
+
+" Close Command-T
+if &term =~ "xterm" || &term =~ "screen"
+  let g:CommandTCancelMap = ['<ESC>', '<C-c>']
+endif
 
 " ------------ Key bindings ------------
 
+inoremap jj <Esc>
