@@ -15,7 +15,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
-Plugin 'wincent/command-t'
+Plugin 'kien/ctrlp.vim'
 
 " Plugins must be added before the following line
 call vundle#end()
@@ -52,16 +52,11 @@ let g:airline#extensions#tabline#fnamemod=':t'
 let g:airline_powerline_fonts=1
 set laststatus=2
 
-" ------------- Command-T --------------
+" --------------- Ctrl-P ---------------
 
-" Ignore directories
-set wildignore+=node_modules
-set wildignore+=client/bower_components
-
-" Close Command-T
-if &term =~ "xterm" || &term =~ "screen"
-  let g:CommandTCancelMap = ['<ESC>', '<C-c>']
-endif
+" Ignore the following file extensions and directories
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = '\v[\/](bower_components|dist|node_modules)|(\.(git))$'
 
 " ------------ Key bindings ------------
 
