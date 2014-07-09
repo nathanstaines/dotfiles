@@ -16,6 +16,9 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'kien/ctrlp.vim'
+Plugin 'ervandew/supertab'
+Plugin 'mattn/emmet-vim'
+Plugin 'editorconfig/editorconfig-vim'
 
 " Plugins must be added before the following line
 call vundle#end()
@@ -24,15 +27,46 @@ filetype plugin indent on
 " ----------- General config -----------
 
 set number                              " Display line numbers
+set backspace=indent,eol,start          " Allow backspace in insert mode
 set noshowmode                          " Remove default mode indicator
+set cursorline                          " Highlight current line
+set wildmenu                            " Display visual autocomplete for the command menu
+set incsearch                           " Search as characters are entered
+set hlsearch                            " Highlight search matches
+set mouse=a
+
+" This makes vim act like all other editors, buffers can
+" exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
+
+set undolevels=1000                     " Use many muchos levels of undo
 
 " ----------- Theme settings -----------
 
 syntax on
-set background=dark
 colorscheme base16-ocean
+set background=dark
 set term=screen-16color
 set t_Co=16
+
+" ------------- Indentation ------------
+
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+
+set list listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+" --------- Turn off swap files --------
+
+set noswapfile
+set nobackup
+set nowb
 
 " -------------- Nerdtree --------------
 
@@ -61,3 +95,12 @@ let g:ctrlp_custom_ignore = '\v[\/](bower_components|dist|node_modules)|(\.(git)
 " ------------ Key bindings ------------
 
 inoremap jj <Esc>
+
+" Easier window navigation
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Turn off search highlights
+nnoremap <leader><space> :nohlsearch<CR>
