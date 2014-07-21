@@ -11,13 +11,18 @@ call vundle#begin()
 
 " Let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-Plugin 'chriskempson/base16-vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'ervandew/supertab'
-Plugin 'mattn/emmet-vim'
+Plugin 'bling/vim-airline'
+Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-repeat'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'chriskempson/base16-vim'
 Plugin 'editorconfig/editorconfig-vim'
 
 " Plugins must be added before the following line
@@ -33,7 +38,7 @@ set cursorline                          " Highlight current line
 set wildmenu                            " Display visual autocomplete for the command menu
 set incsearch                           " Search as characters are entered
 set hlsearch                            " Highlight search matches
-set mouse=a
+set scrolloff=10                        " Keep more lines on-screen when scrolling up/down
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -70,12 +75,6 @@ set nowb
 
 " -------------- Nerdtree --------------
 
-" Open NERDTree automatically when vim starts up and focus on main window
-autocmd VimEnter * NERDTree | wincmd p
-
-" Close NERDTree if it's the only window left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
 " Disable the 'Bookmarks' label and 'Press ? for help' text
 let NERDTreeMinimalUI=1
 
@@ -103,4 +102,4 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " Turn off search highlights
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <silent> <Space> :nohlsearch<cr><ESC>
