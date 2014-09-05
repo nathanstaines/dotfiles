@@ -13,9 +13,6 @@ alias ll="ls -AGoh"
 
 alias npmls="npm ls -g --depth=0 "$@" 2>/dev/null"
 
-# Use updated version of vim
-alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
-
 # Delete contents of directory
 alias dump="rm -rf * .* "$@" 2>/dev/null"
 
