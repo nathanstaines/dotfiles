@@ -39,3 +39,7 @@ eval "$(rbenv init -)"
 
 # Add postgres.app to $PATH
 export PATH="/Applications/Postgres93.app/Contents/MacOS/bin:$PATH"
+
+# VirtualEnv config
+export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
