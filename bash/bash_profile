@@ -19,6 +19,7 @@ export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 declare -a files=(
     "$HOME/.aliases"
     "$HOME/.bash_prompt"
+    "$HOME/.git-completion.bash"
 )
 
 # If these files are readable, source them
@@ -31,15 +32,7 @@ done
 
 unset files
 
-# Add rbenv to $PATH
-export PATH="$HOME/.rbenv/bin:$PATH"
-
-# Add rbenv init to shell
-eval "$(rbenv init -)"
-
-# Add postgres.app to $PATH
-export PATH="/Applications/Postgres93.app/Contents/MacOS/bin:$PATH"
-
-# VirtualEnv config
-export WORKON_HOME=~/.virtualenvs
+# Virtualenvwrapper settings
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Projects
 source /usr/local/bin/virtualenvwrapper.sh
