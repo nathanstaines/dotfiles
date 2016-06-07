@@ -30,7 +30,3 @@
 .DS_Store*
 ehthumbs.db
 Thumbs.db
-
-# Config files
-sftp-config.json
-codekit-config.json
