@@ -11,8 +11,6 @@ alias la="ls -AG"
 alias lh="ls -dC .??*"
 alias ll="ls -AGoh"
 
-alias npmls="npm ls -g --depth=0 "$@" 2>/dev/null"
-
 # Delete contents of directory
 alias dump="rm -rf * .* "$@" 2>/dev/null"
 

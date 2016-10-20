@@ -6,20 +6,20 @@
     br = branch
     co = checkout
     df = diff -w
-    lg = log --max-count=20 --pretty=nice
+    lg = log --max-count=30 --pretty=nice
     cl = ! git checkout . && git clean -df
     dl = ! git rm $(git ls-files --deleted)
     pp = ! git pull --rebase && git push
-    lt = "for-each-ref --count=20 --sort=-committerdate --format='%1B[0;35m%(committerdate:short)%1B[m | %(refname:short) %1B[0;32m(%(authorname))%1B[m'"
-    su = log --all --pretty=nice --abbrev-commit --date=iso --author=Nathan
+    lt = "for-each-ref --count=30 --sort=-committerdate --format='%1B[0;35m%(committerdate:short)%1B[m | %(refname:short) %1B[0;32m(%(authorname))%1B[m'"
+    su = ! "git log --reverse --branches --author=$(git config --get user.email) --date=local --since=$(if [[ "Mon" == "$(date +%a)" ]]; then echo "last friday"; else echo "yesterday"; fi) --pretty=nice"
 [color]
     ui = auto
     interactive = auto
 [core]
     excludesfile = ~/.gitignore_global
-	pager = less -r
+	  pager = less -r
 [push]
-	default = simple
+	  default = simple
 [pretty]
     # tut: http://gitimmersion.com/lab_10.html
     # ref: http://linux.die.net/man/1/git-log
@@ -29,4 +29,4 @@
     name = Nathan Staines
     email = nathan@nathanstaines.com
 [branch]
-	autosetuprebase = always
+	  autosetuprebase = always
